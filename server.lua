@@ -1,7 +1,7 @@
---3
---removed <turtle> is online message
+--4
+--added sexyness
  
-local version = 3
+local version = 4
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
@@ -80,12 +80,15 @@ local function main()
             if data[1] == "label" then
                 turtles[data[2]] = cid
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
+                local x,y = term.getCursorPos()
+                term.setCursorPos(
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
                 writeTo("", logTerm)
             elseif data[1] == "ping" then
                 t.sendData(cid, "pong")
-            elseif data[1] == "pong" then             
+            elseif data[1] == "pong" then 
+                writeColor("response -> ", colors.white, colors.white, logTerm)            
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
