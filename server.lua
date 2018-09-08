@@ -1,7 +1,7 @@
---1
---initial commit
+--2
+--removed 2 unnecessary lines
  
-local version = 1
+local version = 2
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
