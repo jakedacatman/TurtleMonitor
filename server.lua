@@ -80,8 +80,6 @@ local function main()
             if data[1] == "label" then
                 turtles[data[2]] = cid
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
-                local x,y = term.getCursorPos()
-                term.setCursorPos(
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
                 writeTo("", logTerm)
