@@ -3,7 +3,7 @@
  
 local version = 1
  
-local latest = http.get("https://raw.githubusercontent.com/jakedacatman/ChatLogger/master/ChatLogger.lua")
+local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
 if latest ~= nil then
     local latestVersion = tonumber(string.sub(latest.readLine(), 3))
