@@ -8,4 +8,4 @@ make the startup file of the turtle(s) the following line:
 shell.run("sender.lua <uuid>") 
 obviously replace "<uuid>" with the server's uuid
 
-todo: make sender an API so you can call it from other programs(securely send data to the server)
+will become a command thing
