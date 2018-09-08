@@ -1,7 +1,7 @@
---2
---dance
+--3
+--dance+autoupdating
  
-local version = 2
+local version = 3
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -10,25 +10,11 @@ if latest ~= nil then
     if latestVersion > version then
         print("Out of date (version "..latestVersion.." is out).")
         print("Update notes: "..string.sub(latest.readLine(), 3))
-        print("Do you wish to update? (y/n)")
-        local timeout = os.startTimer(15)
-        while true do
-            local event = {os.pullEvent()}
-            if event[1] == "char" then
-                if event[2] == "y" then
-                    fs.delete(shell.getRunningProgram())
-                    shell.run("wget https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua sender.lua")
-                    print("Update complete!")
-                    print("If you wish to run the new version, then hold CTRL+T and run sender.lua.")
-                else
-                    print("Not updating.")
-                    break
-                end
-            elseif event[1] == "timer" and event[2] == timeout then
-                print("Not updating.")
-                break
-            end
-        end
+        print("Updating.")
+        fs.delete(shell.getRunningProgram())
+        shell.run("wget https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua sender.lua")
+        print("Update complete!")
+        os.reboot()
     else
         print("Up to date! (or Github hasn't pushed my update)")
     end
@@ -89,7 +75,20 @@ local function main()
                 location = location:tostring() or "unknown"
                 t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
             elseif data[1] == "dance" then
-                shell.run("dance")
+				local up = turtle.up
+				local down = turtle.down
+				local forw = turtle.forward
+				local function turnAround() turtle.turnLeft() turtle.turnLeft() end						
+				for i = 1, 10 do
+					up()
+					down()
+					forw()
+					up()
+					down()
+					turnAround()
+					forw()
+					turnAround()
+                end
             end
         end
     end
