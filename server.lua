@@ -1,5 +1,5 @@
---2
---removed 2 unnecessary lines
+--3
+--removed <turtle> is online message
  
 local version = 2
  
@@ -79,7 +79,6 @@ local function main()
             local data = split(data, ":")
             if data[1] == "label" then
                 turtles[data[2]] = cid
-                writeTo(data[2].." is online", logTerm)
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
