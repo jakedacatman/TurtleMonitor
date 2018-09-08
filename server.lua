@@ -87,10 +87,10 @@ local function main()
             elseif data[1] == "ping" then
                 t.sendData(cid, "pong")
             elseif data[1] == "pong" then
+                print("\n")                
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
-                print("\n")
             end
         end
     end
