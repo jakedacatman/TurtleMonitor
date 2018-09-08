@@ -81,7 +81,6 @@ local function main()
                 turtles[data[2]] = cid
                 writeTo(data[2].." is online", logTerm)
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
-                local location = data[3] or "unknown"
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
                 print("\n")
@@ -89,7 +88,6 @@ local function main()
                 t.sendData(cid, "pong")
             elseif data[1] == "pong" then
                 writeColor(data[2]..": ", colors.white, colors.red, logTerm)
-                local location = data[3] or "unknown"
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
                 print("\n")
