@@ -84,7 +84,7 @@ local function main()
                 local location = data[3] or "unknown"
                 writeColor(data[3].."  ", colors.white, colors.blue, logTerm)
                 writeColor(data[4].." blocks", colors.white, colors.pink, logTerm)
-                print("")
+                print("\n")
             elseif data[1] == "ping" then
                 t.sendData(cid, "pong")
             elseif data[1] == "pong" then
