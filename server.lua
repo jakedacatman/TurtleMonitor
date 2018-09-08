@@ -1,7 +1,7 @@
---4
---added sexyness
+--5
+--added optional "all" to ping instead of a name
  
-local version = 4
+local version = 5
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
@@ -106,8 +106,14 @@ local function command()
         if cmd[1] == "list" then
             for label, cid in pairs(turtles) do writeTo("-> "..label, logTerm) end
         elseif cmd[1] == "ping" then
-            if turtles[cmd[2]] then t.sendData(turtles[cmd[2]], "ping")
-            else writeTo(cmd[2].." is offline", logTerm)
+            if cmd[2] ~= "all" then
+                if turtles[cmd[2]] then t.sendData(turtles[cmd[2]], "ping")
+                else writeTo(cmd[2].." is offline", logTerm)
+                end
+            else
+                for i,v in pairs(turtles) do
+                    t.sendData(v, "ping")
+                end
             end
         elseif cmd[1] == "exit" then break
         else
