@@ -1,7 +1,7 @@
---5
---added optional "all" to ping instead of a name
- 
-local version = 5
+--6
+--fixed breaking the program with a blank command or not enough args (akak a ping all shortcut)
+
+local version = 6
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
@@ -103,6 +103,7 @@ local function command()
         if input ~= cmdHist[#cmdHist] then table.insert(cmdHist, input) end
  
         local cmd = split(input, " ")
+        if #cmd == 0 then cmd[1] == "ping" cmd[2] == "all" end
         if cmd[1] == "list" then
             for label, cid in pairs(turtles) do writeTo("-> "..label, logTerm) end
         elseif cmd[1] == "ping" then
