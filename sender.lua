@@ -1,7 +1,7 @@
---1
---initial commit
+--2
+--dance
  
-local version = 1
+local version = 2
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -88,6 +88,8 @@ local function main()
                 local location = vector.new(gps.locate(2))
                 location = location:tostring() or "unknown"
                 t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
+            elseif data[1] == "dance" then
+                shell.run("dance")
             end
         end
     end
