@@ -1,7 +1,7 @@
---6
---fixed breaking the program with a blank command or not enough args (akak a ping all shortcut)
+--7
+--dance!
 
-local version = 6
+local version = 7
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
@@ -117,6 +117,16 @@ local function command()
                 end
             end
         elseif cmd[1] == "exit" then break
+        elseif cmd[1] == "dance" then
+            if cmd[2] ~= "all" then
+                if turtles[cmd[2]] then t.sendData(turtles[cmd[2]], "dance")
+                else writeTo(cmd[2].." is offline", logTerm)
+                end
+            else
+                for i,v in pairs(turtles) do
+                    t.sendData(v, "dance")
+                end
+            end
         else
             writeTo("Invalid command", logTerm)
         end
