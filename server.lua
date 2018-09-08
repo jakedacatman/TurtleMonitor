@@ -1,7 +1,7 @@
 --3
 --removed <turtle> is online message
  
-local version = 2
+local version = 3
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/server.lua")
  
