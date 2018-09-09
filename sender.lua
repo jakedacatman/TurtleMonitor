@@ -34,7 +34,7 @@ local t = smt("smt.main.transit")
 t.openChannel(12455)
 local name = os.getComputerLabel()
 local serverCID = false
-local retryDelay = 30
+local retryDelay = 10
  
 local function split(s, p)
     local t = {}
