@@ -1,7 +1,7 @@
---4
---sends data to server every 30 seconds
+--5
+--cut down on spam
  
-local version = 4
+local version = 5
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -53,9 +53,9 @@ local function main()
 	    print("Running version "..version)		
             serverCID = cid
 	    hasConnected = true
-            local location = vector.new(gps.locate(2))
-            location = location:tostring() or "unknown"
-            t.sendData(serverCID, "label:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
+            --local location = vector.new(gps.locate(2))
+            --location = location:tostring() or "unknown"
+            --t.sendData(serverCID, "label:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
         elseif event == "timer" and cid == timeout then
             if not serverCID then
                 timeout = os.startTimer(retryDelay)
