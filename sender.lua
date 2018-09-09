@@ -1,7 +1,7 @@
---5
+--6
 --cut down on spam
  
-local version = 5
+local version = 6
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -43,6 +43,12 @@ local function split(s, p)
     return t
 end
 
+function sendData()
+    local location = vector.new(gps.locate(2))
+    location = location:tostring() or "unknown"
+    t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
+end
+
 local function main()
     local timeout = os.startTimer(retryDelay)
     t.openTunnel(uuid, 12455)
@@ -62,10 +68,9 @@ local function main()
                 t.openTunnel(uuid, 12455)
             elseif serverCID then
                 timeout = os.startTimer(5)
-                local location = vector.new(gps.locate(2))
-                location = location:tostring() or "unknown"
-                t.sendData(serverCID, "ping:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
-                serverCID = false
+                sendData()
+		hasConnected = false
+		serverCID = false
             end
         elseif event == "RLWE-Receive" then
             local data = split(data, ":") -- Make new command below
@@ -74,9 +79,7 @@ local function main()
                 os.cancelTimer(timeout)
                 timeout = os.startTimer(retryDelay)
             elseif data[1] == "ping" then
-                local location = vector.new(gps.locate(2))
-                location = location:tostring() or "unknown"
-                t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
+                sendData()
             elseif data[1] == "dance" then
 		local up = turtle.up
 		local down = turtle.down
@@ -99,11 +102,7 @@ end
 
 local function updateHome()
     while true do
-	if hasConnected then
-	    local location = vector.new(gps.locate(2))
-            location = location:tostring() or "unknown"
-            t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
-	end
+	if hasConnected then sendData() end
 	sleep(30)
     end
 end
