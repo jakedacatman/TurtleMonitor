@@ -35,13 +35,14 @@ t.openChannel(12455)
 local name = os.getComputerLabel()
 local serverCID = false
 local retryDelay = 10
+local hasConnected = false
  
 local function split(s, p)
     local t = {}
     s:gsub("([^"..p.."]+)", function(v) t[#t + 1] = v end)
     return t
 end
- 
+
 local function main()
     local timeout = os.startTimer(retryDelay)
     t.openTunnel(uuid, 12455)
@@ -50,6 +51,7 @@ local function main()
         if event == "RLWE-Finish" then
             print("Server online!")
             serverCID = cid
+	    hasConnected = true
             local location = vector.new(gps.locate(2))
             location = location:tostring() or "unknown"
             t.sendData(serverCID, "label:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
@@ -75,25 +77,36 @@ local function main()
                 location = location:tostring() or "unknown"
                 t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
             elseif data[1] == "dance" then
-				local up = turtle.up
-				local down = turtle.down
-				local forw = turtle.forward
-				local function turnAround() turtle.turnLeft() turtle.turnLeft() end						
-				for i = 1, 10 do
-					up()
-					down()
-					forw()
-					up()
-					down()
-					turnAround()
-					forw()
-					turnAround()
+		local up = turtle.up
+		local down = turtle.down
+		local forw = turtle.forward
+		local function turnAround() turtle.turnLeft() turtle.turnLeft() end						
+		for i = 1, 10 do
+		    up()
+		    down()
+		    forw()
+		    up()
+		    down()
+		    turnAround()
+		    forw()
+		    turnAround()
                 end
             end
         end
     end
 end
+
+local function updateHome()
+    while true do
+	if hasConnected then
+	    local location = vector.new(gps.locate(2))
+            location = location:tostring() or "unknown"
+            t.sendData(serverCID, "pong:"..name..":"..location..":"..tostring(turtle.getFuelLevel()))
+	end
+	sleep(30)
+    end
+end
  
 term.clear()
 term.setCursorPos(1, 1)
-parallel.waitForAny(t.listener, main)
+parallel.waitForAny(t.listener, main, updateHome)
