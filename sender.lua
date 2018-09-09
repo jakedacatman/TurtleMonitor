@@ -1,7 +1,7 @@
---6
---cut down on spam
+--7
+--dance 2.1
  
-local version = 6
+local version = 7
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -81,6 +81,7 @@ local function main()
             elseif data[1] == "ping" then
                 sendData()
             elseif data[1] == "dance" then
+		textutils.slowPrint("preparing to get down...")
 		local up = turtle.up
 		local down = turtle.down
 		local forw = turtle.forward
