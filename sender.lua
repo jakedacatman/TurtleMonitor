@@ -1,7 +1,7 @@
---3
---dance+autoupdating
+--4
+--sends data to server every 30 seconds
  
-local version = 3
+local version = 4
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -50,6 +50,7 @@ local function main()
         local event, cid, data = os.pullEvent()
         if event == "RLWE-Finish" then
             print("Server online!")
+	    print("Running version "..version)		
             serverCID = cid
 	    hasConnected = true
             local location = vector.new(gps.locate(2))
