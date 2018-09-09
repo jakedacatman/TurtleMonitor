@@ -1,7 +1,7 @@
---7
---dance 2.1
+--8
+--8
  
-local version = 7
+local version = 8
  
 local latest = http.get("https://raw.githubusercontent.com/jakedacatman/TurtleMonitor/master/sender.lua")
  
@@ -56,7 +56,8 @@ local function main()
         local event, cid, data = os.pullEvent()
         if event == "RLWE-Finish" then
             print("Server online!")
-	    print("Running version "..version)		
+	    print("Running version "..version)
+	    print("My name is "..name)
             serverCID = cid
 	    hasConnected = true
             --local location = vector.new(gps.locate(2))
